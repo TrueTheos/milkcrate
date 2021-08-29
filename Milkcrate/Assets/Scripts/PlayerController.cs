@@ -74,7 +74,14 @@ public class PlayerController : MonoBehaviour
 
     private void Fall()
     {
+        PlayerPrefs.SetInt("LastScore", Score);
 
+        if(PlayerPrefs.GetInt("Highscore") < Score)
+        {
+            PlayerPrefs.SetInt("Highscore", Score);
+        }
+
+        PlayerPrefs.Save();
     }
 
     IEnumerator ResetCrate(GameObject crate)
