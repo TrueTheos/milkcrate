@@ -49,11 +49,11 @@ public class SliderMove : MonoBehaviour
         if(ArrowRect.anchorMax.x >= GreenPrst && ArrowRect.anchorMax.x <= GreenPrst*2){
             Debug.Log("Correct");
             CanJump = true;
-            test.text = "Can Jump: True";
+            //test.text = "Can Jump: True";
         }else{
             Debug.Log("Wrong");
             CanJump = false;
-            test.text = "Can Jump: False";
+            //test.text = "Can Jump: False";
         }
     }
 
