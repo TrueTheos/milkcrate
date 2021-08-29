@@ -71,7 +71,8 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
+    private bool ShowedContinue = false;
+    [SerializeField] private GameObject ContinueScreen;
     private void Fall()
     {
         PlayerPrefs.SetInt("LastScore", Score);
@@ -82,6 +83,15 @@ public class PlayerController : MonoBehaviour
         }
 
         PlayerPrefs.Save();
+
+        if(!ShowedContinue){
+            // Show continue
+            ContinueScreen.SetActive(true);
+
+            ShowedContinue = true;
+        }else{
+            // Gameover
+        }
     }
 
     IEnumerator ResetCrate(GameObject crate)

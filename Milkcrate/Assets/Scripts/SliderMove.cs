@@ -28,7 +28,7 @@ public class SliderMove : MonoBehaviour
     private void Start() {
         valueFrom = 0;
         valueTo = 100;
-        StartCoroutine(ChangeSpeed(valueFrom, valueTo));
+        StartCoroutine(MoveSlider(valueFrom, valueTo));
         StartCoroutine(GetWidth());
     }
     
@@ -57,7 +57,7 @@ public class SliderMove : MonoBehaviour
         }
     }
 
-    private IEnumerator ChangeSpeed( float v_start, float v_end)
+    private IEnumerator MoveSlider( float v_start, float v_end)
     {
         float elapsed = 0.0f;
         while (elapsed < Speed)
@@ -68,7 +68,7 @@ public class SliderMove : MonoBehaviour
             yield return null;
         }
         valueFrom = v_end;
-        StartCoroutine(ChangeSpeed(valueFrom, valueTo));
+        StartCoroutine(MoveSlider(valueFrom, valueTo));
     }
 
     private IEnumerator GetWidth() {
