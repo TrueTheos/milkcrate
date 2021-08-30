@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ContinueScreen : MonoBehaviour {
 
     public float TimeToStopContinue = 5f;
     public Image slider;
+    public GameObject AdButton;
     private void Start() {
         StartCoroutine(MoveSliderTimer(1,0,TimeToStopContinue));
     }
@@ -31,6 +33,14 @@ public class ContinueScreen : MonoBehaviour {
             yield return null;
         }
 
-        // Show GameOver
+        SceneManager.LoadScene(0);
+    }
+
+    public void OnEnable()
+    {
+        if(AdManager.instance.usedAd)
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }

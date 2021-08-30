@@ -2397,6 +2397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeToStopContinue: 5
   slider: {fileID: 353286930}
+  AdButton: {fileID: 363889453}
 --- !u!1 &1728725039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2682,6 +2683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c0dc2d13a316314eb3f2dc905b9f232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usedAd: 0
 --- !u!1 &1985911315
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,10 @@ public class AdManager : MonoBehaviour, IUnityAdsListener
     string _iOsGameId = "4287110";
     string _androidGameId = "4287111";
 
+    string adType = "";
+
+    public bool usedAd = false;
+
     private void Awake()
     {
         instance = this;
@@ -21,13 +25,17 @@ public class AdManager : MonoBehaviour, IUnityAdsListener
             ? _iOsGameId
             : _androidGameId;
 
+        adType = (Application.platform == RuntimePlatform.IPhonePlayer)
+            ? "Rewarded_iOS"
+            : "Rewarded_Android";
+
         Advertisement.AddListener(this);
         Advertisement.Initialize(_gameId, true);
     }
 
     public void PlayAd()
     {
-        Advertisement.Show("rewardedVideo");
+        Advertisement.Show(adType);
     }
 
     public void OnUnityAdsReady(string placementId)
@@ -47,9 +55,10 @@ public class AdManager : MonoBehaviour, IUnityAdsListener
 
     public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
     {
-        if (placementId == "rewardedVideo" && showResult == ShowResult.Finished)
+        if (showResult == ShowResult.Finished)
         {
             PlayerController.instance.Reviwe();
+            usedAd = true;
         }
     }
 }

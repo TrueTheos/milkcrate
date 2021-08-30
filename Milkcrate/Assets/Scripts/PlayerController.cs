@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public List<GameObject> crates = new List<GameObject>();
 
     private bool isMidair = false;
+    private bool isAlive = true;
     private Animation anim;
 
     private void Awake()
@@ -30,15 +31,19 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && isAlive)
         {
-            if(SliderMove.instance.CanJump && !isMidair)
+            if(SliderMove.instance.CanJump)
             {
-                Jump();
+                if(!isMidair)
+                {
+                    Jump();
 
-                if(Score % SliderMove.instance.PointsToSpeedUp == 0){
-                    SliderMove.instance.SpeedUp();
-                }
+                    if (Score % SliderMove.instance.PointsToSpeedUp == 0)
+                    {
+                        SliderMove.instance.SpeedUp();
+                    }
+                }                
             }
             else
             {
@@ -79,6 +84,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject ContinueScreen;
     private void Fall()
     {
+        isAlive = false;
+
         PlayerPrefs.SetInt("LastScore", Score);
 
         if(PlayerPrefs.GetInt("Highscore") < Score)
@@ -100,6 +107,7 @@ public class PlayerController : MonoBehaviour
 
     public void Reviwe()
     {
+        isAlive = true;
         ShowedContinue = false;
         ContinueScreen.SetActive(false);
     }
