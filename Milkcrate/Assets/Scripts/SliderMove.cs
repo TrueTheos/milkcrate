@@ -6,8 +6,17 @@ using UnityEngine.UI;
 public class SliderMove : MonoBehaviour
 {
     public static SliderMove instance;
-
+    [Header("GamePlay")]
     [SerializeField] private float Speed;
+    public float SpeedUpAmount;
+    public float SpeedUpCap;
+    public int PointsToSpeedUp;
+
+    public float GreenSize;
+    public float ShrinkAmount;
+    public float ShrinkCap;
+    public int PointsToShrink;
+    [Header("Compontents")]
     [SerializeField] private Slider slider;
     [SerializeField] private RectTransform Red,Green;
     [SerializeField] private RectTransform ArrowRect;
@@ -16,8 +25,25 @@ public class SliderMove : MonoBehaviour
     private float RedWidth,GreenWidth;
     private float GreenPrst;
 
-    public void SetSpeed(float speed){
-        Speed = speed;
+    public void SpeedUp(){
+        // Decrease the Speed var
+        Speed -= SpeedUpAmount;
+
+        // Clamp the Speed so it doesn't go lower than the cap
+        Speed = Mathf.Clamp(Speed,SpeedUpCap,5);
+        
+        // Decrease the Green box size var
+        GreenSize -= ShrinkAmount;
+
+        // Clamp the Green box size so it doesn't go lower than the cap
+        GreenSize = Mathf.Clamp(GreenSize,ShrinkCap,GreenSize);
+
+        // Update it on the UI
+        Green.sizeDelta = new Vector2(GreenSize, Green.rect.height);
+
+        // Update the persentage
+        StartCoroutine(GetWidth());
+
     }
 
 
@@ -46,7 +72,7 @@ public class SliderMove : MonoBehaviour
     public Animator SliderAnim;
     private void Clicked(){
         SliderAnim.SetTrigger("Click");
-        if(ArrowRect.anchorMax.x >= GreenPrst && ArrowRect.anchorMax.x <= GreenPrst*2){
+        if(ArrowRect.anchorMax.x <= 0.5 + GreenPrst / 2 && ArrowRect.anchorMax.x >= 0.5 - GreenPrst / 2){
             Debug.Log("Correct");
             CanJump = true;
             //test.text = "Can Jump: True";
@@ -73,9 +99,11 @@ public class SliderMove : MonoBehaviour
 
     private IEnumerator GetWidth() {
         yield return new WaitForEndOfFrame();
+        Green.sizeDelta = new Vector2(GreenSize, Green.rect.height);
+        
         RedWidth = Red.rect.width;
         GreenWidth = Green.rect.width;
-
+        GreenSize = GreenWidth;
         GreenPrst = GreenWidth / RedWidth;
     }
 }

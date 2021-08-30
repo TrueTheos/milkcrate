@@ -35,6 +35,10 @@ public class PlayerController : MonoBehaviour
             if(SliderMove.instance.CanJump && !isMidair)
             {
                 Jump();
+
+                if(Score % SliderMove.instance.PointsToSpeedUp == 0){
+                    SliderMove.instance.SpeedUp();
+                }
             }
             else
             {

@@ -770,6 +770,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 2
+  SpeedUpAmount: 0.1
+  SpeedUpCap: 1
+  PointsToSpeedUp: 5
+  GreenSize: 620
+  ShrinkAmount: 20
+  ShrinkCap: 300
+  PointsToShrink: 5
   slider: {fileID: 453855436}
   Red: {fileID: 1046699707}
   Green: {fileID: 508269694}
