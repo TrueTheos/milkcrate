@@ -98,6 +98,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Reviwe()
+    {
+        ShowedContinue = false;
+        ContinueScreen.SetActive(false);
+    }
+
     IEnumerator ResetCrate(GameObject crate)
     {
         yield return new WaitForSeconds(jumpDuration);

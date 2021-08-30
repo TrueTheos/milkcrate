@@ -12,6 +12,8 @@ public class ContinueScreen : MonoBehaviour {
 
     public void WatchAdButton(){
         // Show ad
+        AdManager.instance.PlayAd();
+
         StopCoroutine("MoveSliderTimer");
 
 
