@@ -11,13 +11,12 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
 
     [SerializeField] public float jumpDuration;
-    [SerializeField] public AnimationClip jumpAnimation;
     [SerializeField] public TextMeshProUGUI scoreText;
     [SerializeField] public List<GameObject> crates = new List<GameObject>();
 
     private bool isMidair = false;
     private bool isAlive = true;
-    private Animation anim;
+    private Animator anim;
 
     private void Awake()
     {
@@ -26,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        anim = GetComponent<Animation>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -54,31 +53,28 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        anim.clip = jumpAnimation;
-        anim.Play();
-
-        Score++;
-
-        scoreText.text = Score.ToString();
-
-        isMidair = true;
-
         foreach (var crate in crates)
         {
             Vector3 cratePos = crate.GetComponent<RectTransform>().anchoredPosition;
             crate.GetComponent<Crate>().index--;
             int crateIndex = crate.GetComponent<Crate>().index;
 
-            if(crateIndex == -1)
+            if (crateIndex == -1)
             {
-                crate.GetComponent<RectTransform>().DOLocalMove(new Vector3(cratePos.x - 400, cratePos.y - 400, 0), jumpDuration);
+                crate.GetComponent<RectTransform>().DOLocalMove(new Vector3(cratePos.x - 320, cratePos.y - 230, 0), jumpDuration);
                 StartCoroutine(ResetCrate(crate));
             }
             else
             {
-                crate.GetComponent<RectTransform>().DOLocalMove(new Vector3(cratePos.x - 400, cratePos.y - 400, 0), jumpDuration);
+                crate.GetComponent<RectTransform>().DOLocalMove(new Vector3(cratePos.x - 320, cratePos.y - 230, 0), jumpDuration);
             }
         }
+
+        Score++;
+
+        scoreText.text = Score.ToString();
+
+        isMidair = true;
     }
     private bool ShowedContinue = false;
     [SerializeField] private GameObject ContinueScreen;
@@ -115,8 +111,8 @@ public class PlayerController : MonoBehaviour
     IEnumerator ResetCrate(GameObject crate)
     {
         yield return new WaitForSeconds(jumpDuration);
-        crate.GetComponent<RectTransform>().anchoredPosition = new Vector3(1200, 500, 0);
-        crate.GetComponent<Crate>().index = 5;
+        crate.GetComponent<RectTransform>().anchoredPosition = new Vector3(1280, 220, 0);
+        crate.GetComponent<Crate>().index = 7;
         isMidair = false;
     }
 }
