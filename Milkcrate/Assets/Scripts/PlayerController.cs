@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] public float jumpDuration;
     [SerializeField] public TextMeshProUGUI scoreText;
+    [SerializeField] public TextMeshProUGUI GameOverscoreText;
     [SerializeField] public List<GameObject> crates = new List<GameObject>();
 
     private bool isMidair = false;
@@ -80,7 +81,7 @@ public class PlayerController : MonoBehaviour
     private void Fall()
     {
         isAlive = false;
-
+        anim.SetTrigger("Fall");
         PlayerPrefs.SetInt("LastScore", Score);
 
         if(PlayerPrefs.GetInt("Highscore") < Score)
@@ -89,7 +90,11 @@ public class PlayerController : MonoBehaviour
         }
 
         PlayerPrefs.Save();
-
+        GameOverscoreText.SetText(Score.ToString());
+        StartCoroutine(WaitForFallAnimation());
+    }
+    IEnumerator WaitForFallAnimation(){
+        yield return new WaitForSeconds(1.3f);
         if(!ShowedContinue){
             // Show continue
             ContinueScreen.SetActive(true);
